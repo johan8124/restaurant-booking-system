@@ -29,6 +29,8 @@ const defaultForm = {
   notes: ''
 };
 
+const API_URL = import.meta.env.VITE_API_URL || '';
+
 const statusTone = {
   Pending: 'warning',
   Confirmed: 'success',
@@ -49,7 +51,7 @@ function App() {
   const fetchBookings = React.useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/bookings');
+      const response = await fetch(`${API_URL}/api/bookings`);
       const data = await response.json();
       setBookings(Array.isArray(data) ? data : []);
     } catch {
@@ -89,7 +91,7 @@ function App() {
     setErrors({});
 
     try {
-      const response = await fetch('/api/bookings', {
+      const response = await fetch(`${API_URL}/api/bookings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -117,7 +119,7 @@ function App() {
     setBookings((current) => current.map((booking) => (booking._id === id ? { ...booking, status } : booking)));
 
     try {
-      const response = await fetch(`/api/bookings/${id}`, {
+      const response = await fetch(`${API_URL}/api/bookings/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status })
@@ -136,7 +138,7 @@ function App() {
     setBookings((current) => current.filter((booking) => booking._id !== id));
 
     try {
-      const response = await fetch(`/api/bookings/${id}`, { method: 'DELETE' });
+      const response = await fetch(`${API_URL}/api/bookings/${id}`, { method: 'DELETE' });
       if (!response.ok) throw new Error('Delete failed');
     } catch {
       setBookings(previous);
