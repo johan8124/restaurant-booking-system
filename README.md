@@ -27,3 +27,18 @@ A MERN stack restaurant reservation system with a React frontend, Express API, M
 ```bash
 npm run install:all
 npm run dev
+
+###Frontend:
+http://localhost:5173
+
+'''Backend:
+http://localhost:5000
+
+
+
+Then commit README:
+
+```powershell
+git add README.md
+git commit -m "Add project README"
+git push
